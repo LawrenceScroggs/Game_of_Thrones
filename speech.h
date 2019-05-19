@@ -27,3 +27,4 @@ class speech{
     char * s_name();  // holds the name to match script with character
 
 };
+

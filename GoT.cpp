@@ -5,11 +5,27 @@
 // throughout the binary tree that will determine who gets the 
 // Iron Throne
 
+#include "person.h"
 
 
 int main(){
 
+  char * a_first = new char[100];
+  char * a_last = new char[100];
 
+
+  cout << "Please enter your characters first name: ";
+  cin.get(a_first,100);
+  cin.ignore(100,'\n');
+  
+  cout << "Please enter your characters last name: ";
+  cin.get(a_last,100);
+  cin.ignore(100,'\n');
+
+  first_name player1(a_first,a_last);
+
+
+  player1.stats();
 
 
 
@@ -17,3 +33,4 @@ int main(){
   return 0;
 
 }
+

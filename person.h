@@ -15,13 +15,16 @@ class person{
 
   public:
 
-    virtual int set_hp();
-    virtual int set_atk();
-    virtual bool set_speech();
+    person(char * a_last);
+    person();
+    ~person();
+
+    int set_hp();
+    int set_atk();
+    bool set_speech();
 
   protected:
 
-    virtual ~person();
     int hit_points;
     int atk_points;
     bool speech_on;
@@ -31,11 +34,10 @@ class last_name: public person{
 
   public:
 
+    last_name(char * a_last);
     last_name();
     ~last_name();
 
-    int set_hp();
-    int set_atk();
     bool set_speech();
     int set_special(); 
   
@@ -49,9 +51,11 @@ class first_name: public last_name{
 
   public:
 
+    first_name(char * a_first, char * a_last);
     first_name();
     ~first_name();
 
+    void stats();
     bool set_pwr();
     int attack();
     int read_attack();
