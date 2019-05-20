@@ -27,6 +27,10 @@ int main(){
 
   player1.stats();
 
+  player1.set_special();
+
+  player1.stats();
+
 
 
 

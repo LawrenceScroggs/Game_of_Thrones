@@ -19,6 +19,9 @@ class node{
 
   protected:
 
+    node * left;
+    node * right;
+
 };
 class battle: public node{
 
@@ -26,7 +29,12 @@ class battle: public node{
     battle();
     ~battle();
 
+    int build_battles();
+    int has_battle(first_name & ob1, first_name & ob2);
+
   protected:
+
+    node * root;
 
 
 };

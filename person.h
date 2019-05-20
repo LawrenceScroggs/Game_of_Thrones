@@ -43,6 +43,7 @@ class last_name: public person{
   
   protected:
 
+    bool activate; // sets special to only be used once
     int special; // boost to hp or atk
     char * last;
 

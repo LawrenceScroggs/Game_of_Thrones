@@ -10,4 +10,32 @@
 #include "event.h"
 
 
+/************************battle*************************************************************/
+
+battle::battle(){
+
+  root = NULL;
+
+}
+battle::~battle(){
+
+  delete root;
+
+}
+
+/*******************************node********************************************************/
+
+node::node(){
+
+  left = NULL;
+  right = NULL;
+
+}
+node::~node(){
+
+  delete left;
+  delete right;
+
+}
+
 
