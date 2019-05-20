@@ -11,7 +11,21 @@
 
 
 
+
 /************************************first_name**********************************************/
+
+// connects the proper script object to proper first obj
+int first_name::set_script(speech & obj){
+
+  connect = &obj;
+
+}
+// gets name for the speech class to tie script to name
+char * first_name::view_name(){
+
+  return first;
+
+}
 // shows the stats of your character
 void first_name::stats(){
 
@@ -201,6 +215,9 @@ person::person(char * a_last){
 
   hit_points = hp;
   atk_points = atk;
+  victories = 0;
+  count_dwn = 0;
+
   speech_on = true;
 
   }
@@ -210,6 +227,8 @@ person::person(){
 
   hit_points = 0;
   atk_points = 0;
+  victories = 0;
+  count_dwn = 0;
 
   speech_on = false;
 

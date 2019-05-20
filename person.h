@@ -21,12 +21,14 @@ class person{
 
     int set_hp();
     int set_atk();
-    bool set_speech();
 
   protected:
 
+    int victories;
     int hit_points;
     int atk_points;
+    int count_dwn;
+
     bool speech_on;
 
 };
@@ -38,7 +40,6 @@ class last_name: public person{
     last_name();
     ~last_name();
 
-    bool set_speech();
     int set_special(); 
   
   protected:
@@ -57,14 +58,24 @@ class first_name: public last_name{
     ~first_name();
 
     void stats();
+
     bool set_pwr();
+
     int attack();
     int read_attack();
+    int set_script(speech & obj);
+
+    char * view_name();
 
   protected:
 
     bool power;  //sets power for additional boost
     char * first;
+
+    int lines;
+    char * dialogue;
+
+    speech * connect;
 
 };
 

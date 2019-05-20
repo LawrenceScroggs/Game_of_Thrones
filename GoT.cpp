@@ -5,7 +5,7 @@
 // throughout the binary tree that will determine who gets the 
 // Iron Throne
 
-#include "person.h"
+#include "event.h"
 
 
 int main(){
@@ -30,6 +30,16 @@ int main(){
   player1.set_special();
 
   player1.stats();
+
+  speech jon(player1.view_name());
+  player1.set_script(jon);
+
+  battle the_war;
+
+  the_war.battles_in();
+
+  the_war.display_battles();
+
 
 
 

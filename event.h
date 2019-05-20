@@ -19,8 +19,9 @@ class event{
     ~event();
 
     event *& go_left();
-    event * go_right();
+    event *& go_right();
     char compare();
+    char * show_info();
 
   protected:
     
@@ -38,12 +39,14 @@ class battle{
     battle();
     ~battle();
 
-    int battles_in(event *& root); // reads in names of battles
+    int display_battles();
+    int battles_in(); // reads in names of battles
     int build_battles(char * temp);
     int has_battle(first_name & ob1, first_name & ob2);
 
   protected:
 
+    int display_battles(event * root);
     int build_battles(event *& root,char * temp);
 
     event * root;

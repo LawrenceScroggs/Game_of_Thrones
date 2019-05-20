@@ -19,12 +19,21 @@ using namespace std;
 class speech{
 
   public:
+    speech(char * name);
     speech();
     ~speech();
 
+    int set_speech(char * s_name);
+
   protected:
 
-    char * s_name();  // holds the name to match script with character
+    char ** speech_txt; // array to hold dialogue
+    
+    char * s_name;  // holds the name to match script with character
+    
+    int lines;
+
+    char * dialogue;
 
 };
 
