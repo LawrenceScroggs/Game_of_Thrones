@@ -11,30 +11,41 @@
 #include "person.h"
 
 
-class node{
+class event{
 
   public:
-    node();
-    ~node();
+    event(char * a_event);
+    event();
+    ~event();
+
+    event *& go_left();
+    event * go_right();
+    char compare();
 
   protected:
+    
+    char * event_name;
 
-    node * left;
-    node * right;
+    first_name * head;
+
+    event * left;
+    event * right;
 
 };
-class battle: public node{
+class battle{
 
   public:
     battle();
     ~battle();
 
-    int build_battles();
+    int battles_in(event *& root); // reads in names of battles
+    int build_battles(char * temp);
     int has_battle(first_name & ob1, first_name & ob2);
 
   protected:
 
-    node * root;
+    int build_battles(event *& root,char * temp);
 
+    event * root;
 
 };
