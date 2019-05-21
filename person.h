@@ -59,11 +59,11 @@ class first_name: public last_name{
 
     void stats();
 
-    bool set_pwr();
+    int use_pwr();
 
     int attack();
-    int read_attack();
     int set_script(speech & obj);
+    int use_script();
 
     char * view_name();
 
@@ -72,12 +72,11 @@ class first_name: public last_name{
     bool power;  //sets power for additional boost
     char * first;
 
-    int lines;
-    char * dialogue;
-
     speech * connect;
 
 };
+char * read_first();
+char * read_last();
 
 
 

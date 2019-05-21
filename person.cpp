@@ -14,10 +14,36 @@
 
 /************************************first_name**********************************************/
 
+char * read_first(){
+
+
+  cout << "Please enter your characters first name: ";
+  char * a_first = new char[100];
+  cin.get(a_first,100);
+  cin.ignore(100,'\n');
+
+  return a_first;
+  delete a_first;
+
+}
+char * read_last(){
+
+
+  cout << "Please enter your characters last name: ";
+  char * a_last = new char[100];
+  cin.get(a_last,100);
+  cin.ignore(100,'\n');
+
+  return a_last;
+  delete a_last;
+
+}
+
 // connects the proper script object to proper first obj
 int first_name::set_script(speech & obj){
 
   connect = &obj;
+
 
 }
 // gets name for the speech class to tie script to name

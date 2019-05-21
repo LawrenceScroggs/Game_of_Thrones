@@ -43,6 +43,7 @@ class battle{
     int battles_in(); // reads in names of battles
     int build_battles(char * temp);
     int has_battle(first_name & ob1, first_name & ob2);
+    int start_game(first_name & ob1, first_name & ob2, first_name & ob3,first_name & ob4, first_name & ob5, first_name & ob6);
 
   protected:
 

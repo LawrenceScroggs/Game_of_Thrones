@@ -23,6 +23,7 @@ class speech{
     speech();
     ~speech();
 
+    char * show_speech(int x);
     int set_speech(char * s_name);
 
   protected:

@@ -10,29 +10,26 @@
 
 int main(){
 
-  char * a_first = new char[100];
   char * a_last = new char[100];
 
 
-  cout << "Please enter your characters first name: ";
-  cin.get(a_first,100);
-  cin.ignore(100,'\n');
-  
-  cout << "Please enter your characters last name: ";
-  cin.get(a_last,100);
-  cin.ignore(100,'\n');
 
-  first_name player1(a_first,a_last);
-
-
-  player1.stats();
-
+  first_name player1(read_first(),read_last());
   player1.set_special();
+  speech p1(player1.view_name());
+  player1.set_script(p1);
+      
+  first_name player2(read_first(),read_last());
+  player2.set_special();
+  speech p2(player2.view_name());
+  player2.set_script(p2);
+
 
   player1.stats();
 
-  speech jon(player1.view_name());
-  player1.set_script(jon);
+
+  player2.stats();
+
 
   battle the_war;
 
