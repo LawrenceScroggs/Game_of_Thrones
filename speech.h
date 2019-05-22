@@ -24,9 +24,11 @@ class speech{
     ~speech();
 
     char * show_speech(int x);
-    int set_speech(char * s_name);
+    int set_speech(char * s_name,char * file);
 
   protected:
+
+    int x;
 
     char ** speech_txt; // array to hold dialogue
     
@@ -35,6 +37,7 @@ class speech{
     int lines;
 
     char * dialogue;
+
 
 };
 

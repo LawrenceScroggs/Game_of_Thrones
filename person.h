@@ -72,15 +72,9 @@ class first_name: public last_name{
     bool power;  //sets power for additional boost
     char * first;
 
-    speech * connect;
-
 };
-char * read_first();
-char * read_last();
-
-
-
-
+//char * read_first();
+//char * read_last();
 
 
 

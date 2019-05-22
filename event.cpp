@@ -12,12 +12,47 @@
 
 /************************battle*************************************************************/
 
+int battle::has_battle(first_name & ob1, first_name & ob2){
+
+  if(!root)
+    return -1;
+
+  has_battle(ob1,ob2,root);
+
+  return 0;
+
+}
+int battle::has_battle(first_name & ob1, first_name & ob2, event *& root){
+
+  if(!root){
+    return 1;
+  }
+
+  //has_battle(ob1,ob2,root->go_right());
+  //has_battle(ob1,ob2,root->go_left());
+
+  else
+  return 0;
+
+}
+int battle::start_game(first_name & ob1, first_name & ob2, first_name & ob3,first_name & ob4, first_name & ob5, first_name & ob6){
+
+  
+  cout << "Choose the two characters you want to battle. " << endl;
+ 
+  
+
+}
 int battle::display_battles(){
 
   if(!root)
     return -1;
 
   display_battles(root);
+
+  cout << endl;
+ 
+  return 0;
 
 }
 int battle::display_battles(event * root){
@@ -27,10 +62,12 @@ int battle::display_battles(event * root){
     return 0;
   }
 
-  display_battles(root->go_left());
-  cout << "Battle of " << root->show_info();
-  cout << endl;
-  display_battles(root->go_right());
+  else{
+    display_battles(root->go_left());
+    cout << "Battle of " << root->show_info();
+    cout << endl;
+    display_battles(root->go_right());
+  }
 
 }
 int battle::build_battles(char * temp){
@@ -124,6 +161,8 @@ event::event(char * a_event){
 
   event_name = new char[strlen(a_event)];
   strcpy(event_name,a_event);
+
+  //head = NULL;
   
   left = NULL;
   right = NULL;
@@ -133,7 +172,7 @@ event::event(){
 
   event_name = new char[100];
 
-  head = NULL;
+  //head = NULL;
 
   left = NULL;
   right = NULL;
@@ -142,8 +181,8 @@ event::event(){
 event::~event(){
   
 
-  delete left;
-  delete right;
+//  delete left;
+ // delete right;
 
 }
 

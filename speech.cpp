@@ -16,45 +16,41 @@ char * speech::show_speech(int x){
 
 }
 // sets the script to the person
-int speech::set_speech(char * s_name){
+int speech::set_speech(char * s_name, char * file){
 
-  ifstream speech_in;
 
-  if(strcmp(s_name,"JON") == 0){
-    cout << "jon script" << endl;
-    speech_in.open("jon.txt");
-  }
-  else if(strcmp(s_name,"ARYA") == 0){
-    cout << "arya script" << endl;
-    speech_in.open("arya.txt");
-  }
-  else if(strcmp(s_name,"SANSA") == 0){
-    cout << "sansa script" << endl;
-    speech_in.open("sansa.txt");
-  }
-  else{
-    cout << "Character has no dialogue" << endl;
-    return -1;
-  }
+  cout << "file: " << file;
+
+  const char * all_files[] = {file};
+
 
   int i = 0;
 
-  if(speech_in){
+  ifstream obj;
+  obj.open(all_files[0]);
+  if(obj){
 
-      if(speech_in.peek() == -1) return -1;
+      if(obj.peek() == -1){
+        cout << "exit 1";
+        obj.clear();
+        obj.close();
+      }
 
-      while(speech_in && !speech_in.eof()){
+      while(obj && !obj.eof()){
 
-        if(speech_in.peek() == -1){
-                                
-          speech_in.clear();
-          speech_in.close();
+        if(obj.peek() == -1){
+                              
+          cout << "exit 3 " << endl;
+          obj.clear();
+          obj.close();
+          
           return -1;
         }
 
+            cout << "in here" << i << endl;
             char * temp = new char[500];
-            speech_in.get(temp,500,'\n');
-            speech_in.ignore(500,'\n');
+            obj.get(temp,500,'\n');
+            obj.ignore(500,'\n');
 
             speech_txt[i] = new char[strlen(temp)+1];
             strcpy(speech_txt[i],temp);
@@ -63,25 +59,40 @@ int speech::set_speech(char * s_name){
             delete temp;
           }
     }
-      speech_in.clear();
-      speech_in.close();
+      cout << "exit 2" << endl;
+      obj.clear();
+      obj.close();
 
 }
 speech::speech(char * name){
 
+  cout << "speech called" << endl;
   s_name = new char[strlen(name)+1];
   strcpy(s_name,name);
 
-  cout << s_name << endl;
+  if(strcmp(s_name,"JON") == 0){
 
-  set_speech(s_name);
+      char * file = new char[strlen("jon.txt")+1];
+      strcpy(file,"jon.txt");
+      set_speech(s_name,file);
+      }
+  else if(strcmp(s_name,"ARYA") == 0){
+
+    char * file = new char[strlen("arya.txt")+1];
+    strcpy(file,"arya.txt");
+    set_speech(s_name,file);
+  }
+
+
+
+  x = 0;
+
 
 }
 speech::speech(){
 
   s_name = new char[100];
 
-  dialogue = new char[500];
   lines = 5;
  
   int i = 0;
