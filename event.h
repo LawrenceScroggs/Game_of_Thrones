@@ -23,6 +23,8 @@ class event{
     char compare();
     char * show_info();
 
+    event * get_root();
+
   protected:
     
     char * event_name;

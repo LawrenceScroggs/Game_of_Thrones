@@ -62,7 +62,7 @@ class first_name: public last_name{
     int use_pwr();
 
     int attack();
-    int set_script(speech & obj);
+    int use_script(speech & obj);
     int use_script();
 
     char * view_name();
@@ -73,8 +73,8 @@ class first_name: public last_name{
     char * first;
 
 };
-//char * read_first();
-//char * read_last();
+char * read_first();
+char * read_last();
 
 
 

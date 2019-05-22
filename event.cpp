@@ -39,6 +39,7 @@ int battle::start_game(first_name & ob1, first_name & ob2, first_name & ob3,firs
 
   
   cout << "Choose the two characters you want to battle. " << endl;
+  return 1;
  
   
 
@@ -59,15 +60,16 @@ int battle::display_battles(event * root){
 
   if(!root){
 
+    cout << "in here" << endl;
     return 0;
   }
 
-  else{
     display_battles(root->go_left());
     cout << "Battle of " << root->show_info();
     cout << endl;
     display_battles(root->go_right());
-  }
+
+    return 0;
 
 }
 int battle::build_battles(char * temp){
@@ -138,6 +140,7 @@ battle::~battle(){
 }
 
 /*******************************event********************************************************/
+
 
 char * event::show_info(){
 

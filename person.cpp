@@ -16,9 +16,11 @@
 
 
 // connects the proper script object to proper first obj
-int first_name::set_script(speech & obj){
+int first_name::use_script(speech & obj){
 
-  //connect = &obj;
+  int i = 0;
+
+  cout << obj.show_speech(i);
 
 
 }
@@ -241,7 +243,7 @@ person::~person(){
 
 }
 // gets first name 
-/*char * read_first(){
+char * read_first(){
 
 
   cout << "Please enter your characters first name: ";
@@ -265,4 +267,4 @@ char * read_last(){
   return a_last;
   delete a_last;
 
-}*/
+}
