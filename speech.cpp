@@ -9,99 +9,107 @@
 #include "speech.h"
 
 
-// returns the script with set int x sent in by first
-char * speech::show_speech(int x){
 
-  return speech_txt[x];
+
+// returns the script with set int x sent in by first
+char * speech::show_speech(int i){
+
+
+  return speech_txt[i];
 
 }
-// sets the script to the person
-int speech::set_speech(char * s_name, char * file){
+speech::speech(const speech & a_ob){
+
+  speech * ptr;
+  int i = 0;
+
+  while(i < lines){
+
+    ptr->speech_txt[i] = a_ob.speech_txt[i];
+    ++i;
+  }
+
+}
+speech::speech(char * name, char * file){
+
+  cout << "speech called" << endl;
+  s_name = new char[strlen(name)+1];
+  strcpy(s_name,name);
+
+  lines = 5;
+
+  speech_txt = new char * [lines];
+
+  for(int x = 0; x < lines; ++x){
+
+    speech_txt[x] = NULL;
+  }
 
 
-  cout << "file: " << file;
-
-  const char * all_files[] = {file};
-
+  const char * all[] = {file};
 
   int i = 0;
 
   ifstream obj;
-  obj.open(all_files[0]);
+  obj.open(all[i]);
   if(obj){
 
       if(obj.peek() == -1){
-        cout << "exit 1";
         obj.clear();
         obj.close();
       }
 
-      while(obj && !obj.eof()){
+      while(obj && !obj.eof() && obj.peek() != -1){
 
-        if(obj.peek() == -1){
+      /*  if(obj.peek() == -1){
                               
           cout << "exit 3 " << endl;
           obj.clear();
           obj.close();
           
           return -1;
-        }
+        }*/
 
-            cout << "in here" << i << endl;
             char * temp = new char[500];
             obj.get(temp,500,'\n');
             obj.ignore(500,'\n');
 
-            speech_txt[i] = new char[strlen(temp)+1];
+            speech_txt[i] = new char[strlen(temp) + 1];
             strcpy(speech_txt[i],temp);
             ++i;
 
             delete temp;
           }
     }
-      cout << "exit 2" << endl;
+    
       obj.clear();
       obj.close();
 
-}
-speech::speech(char * name){
-
-  cout << "speech called" << endl;
-  s_name = new char[strlen(name)+1];
-  strcpy(s_name,name);
-
-  if(strcmp(s_name,"JON") == 0){
-
-      char * file = new char[strlen("jon.txt")+1];
-      strcpy(file,"jon.txt");
-      set_speech(s_name,file);
-      }
-  else if(strcmp(s_name,"ARYA") == 0){
-
-    char * file = new char[strlen("arya.txt")+1];
-    strcpy(file,"arya.txt");
-    set_speech(s_name,file);
-  }
-
-
-
-  x = 0;
 
 
 }
-speech::speech(){
+/*speech::speech(){
 
   s_name = new char[100];
 
   lines = 5;
  
-  int i = 0;
-  while(i < lines){
-    speech_txt[i] = new char[500];
-    ++i;
+  speech_txt = new char * [lines];
+
+  for(int x = 0; x < lines; ++x){
+
+    speech_txt[x] = NULL;
   }
-}
+}*/
 speech::~speech(){
 
+  int i = 0;
+
   delete s_name;
+
+  while(i < lines){
+    delete speech_txt[i];
+    i++;
+  }
+
 }

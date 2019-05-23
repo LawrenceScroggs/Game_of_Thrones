@@ -16,12 +16,14 @@
 
 
 // connects the proper script object to proper first obj
-int first_name::use_script(speech & obj){
+int first_name::use_script(int i){
 
-  int i = 0;
+  i = 2;
 
-  cout << obj.show_speech(i);
 
+  cout << script->show_speech(i);
+
+  cout << endl;
 
 }
 // gets name for the speech class to tie script to name
@@ -56,6 +58,22 @@ first_name::first_name(char * a_first, char * a_last):last_name(a_last){
 
   first = new char[strlen(a_first)+1];
   strcpy(first,a_first);
+
+  char * file;
+ 
+  if(strcmp(first,"JON") == 0){
+
+    file = new char[strlen("jon.txt")+1];
+    strcpy(file,"jon.txt");
+
+  }
+  else if(strcmp(first,"ARYA") == 0){
+
+    file = new char[strlen("arya.txt")+1];
+    strcpy(file,"arya.txt");
+
+  }
+  script = new speech(first,file);
 
 }
 // constructor for  first
@@ -240,31 +258,5 @@ person::person(){
 //  destructor
 person::~person(){
 
-
-}
-// gets first name 
-char * read_first(){
-
-
-  cout << "Please enter your characters first name: ";
-  char * a_first = new char[100];
-  cin.get(a_first,100);
-  cin.ignore(100,'\n');
-
-  return a_first;
-  delete a_first;
-
-}
-// gets last name
-char * read_last(){
-
-
-  cout << "Please enter your characters last name: ";
-  char * a_last = new char[100];
-  cin.get(a_last,100);
-  cin.ignore(100,'\n');
-
-  return a_last;
-  delete a_last;
 
 }

@@ -11,18 +11,17 @@
 int main(){
 
 
+  char * read_first();
+  char * read_last();
+
 
 
   first_name player1(read_first(),read_last());
   player1.set_special();
-  speech p1(player1.view_name());
-  player1.use_script(p1);
       
 
   first_name player2(read_first(),read_last());
   player2.set_special();
-  speech p2(player2.view_name());
-  player2.use_script(p2);
 
 
   player1.stats();
@@ -36,7 +35,7 @@ int main(){
 
   the_war.display_battles();
 
- // the_war.has_battle(player1,player2);
+  the_war.has_battle(player1,player2);
 
 
 
@@ -46,3 +45,30 @@ int main(){
 
 }
 
+
+// gets first name 
+char * read_first(){
+
+
+  cout << "Please enter your characters first name: ";
+  char * a_first = new char[100];
+  cin.get(a_first,100);
+  cin.ignore(100,'\n');
+
+  return a_first;
+  delete a_first;
+
+}
+// gets last name
+char * read_last(){
+
+
+  cout << "Please enter your characters last name: ";
+  char * a_last = new char[100];
+  cin.get(a_last,100);
+  cin.ignore(100,'\n');
+
+  return a_last;
+  delete a_last;
+
+}

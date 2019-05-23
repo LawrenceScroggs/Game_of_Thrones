@@ -17,6 +17,8 @@ int battle::has_battle(first_name & ob1, first_name & ob2){
   if(!root)
     return -1;
 
+  ob1.use_script(0);
+
   has_battle(ob1,ob2,root);
 
   return 0;
@@ -49,9 +51,9 @@ int battle::display_battles(){
   if(!root)
     return -1;
 
-  display_battles(root);
+  return display_battles(root);
 
-  cout << endl;
+  cout << "leaving " << endl;
  
   return 0;
 
@@ -184,8 +186,8 @@ event::event(){
 event::~event(){
   
 
-//  delete left;
- // delete right;
+  delete left;
+  delete right;
 
 }
 

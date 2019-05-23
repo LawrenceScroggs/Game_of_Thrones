@@ -62,8 +62,7 @@ class first_name: public last_name{
     int use_pwr();
 
     int attack();
-    int use_script(speech & obj);
-    int use_script();
+    int use_script(int i);
 
     char * view_name();
 
@@ -72,9 +71,9 @@ class first_name: public last_name{
     bool power;  //sets power for additional boost
     char * first;
 
+    speech * script;
+
 };
-char * read_first();
-char * read_last();
 
 
 
