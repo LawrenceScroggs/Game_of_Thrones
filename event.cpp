@@ -17,24 +17,68 @@ int battle::has_battle(first_name & ob1, first_name & ob2){
   if(!root)
     return -1;
 
-  ob1.use_script(0);
+  char * temp = new char[100];
 
-  has_battle(ob1,ob2,root);
+  int i = 0;
+
+  cout << "Enter the name of the battle the you want the two characters to fight. \n";
+  cout << "Battle of : ";
+  cin.get(temp,100);
+  cin.ignore(100,'\n');
+
+  char * b_name = new char[strlen(temp) + 1];
+  strcpy(b_name,temp);
+
+
+  while(i < strlen(temp)){
+    b_name[i] = toupper(b_name[i]);
+    ++i;
+    }
+
+  delete temp;
+  cout << b_name << endl;
+
+  has_battle(b_name,ob1,ob2,root);
 
   return 0;
 
 }
-int battle::has_battle(first_name & ob1, first_name & ob2, event *& root){
+int battle::has_battle(char * b_name, first_name & ob1, first_name & ob2, event *& root){
 
   if(!root){
     return 1;
   }
 
-  //has_battle(ob1,ob2,root->go_right());
-  //has_battle(ob1,ob2,root->go_left());
+  if(strcmp(b_name,root->show_info()) == 0){
 
-  else
-  return 0;
+    cout << "The battle of " << root->show_info();
+    cout << " begins. \n\n";
+
+    while(ob1.see_hp() > 0 && ob2.see_hp() > 0){
+
+      ob1 -= ob2;
+      ob2 -= ob1;
+    }
+    if(ob1.see_hp() > 0){
+
+      cout << "Winner is " << ob1.view_name();
+      cout << endl;
+      ob1.use_script();
+
+    }
+    else{
+
+      cout << "Winner is " << ob2.view_name();
+      cout << endl;
+      ob2.use_script();
+    }
+
+    return 0;
+  }
+  has_battle(b_name,ob1,ob2,root->go_right());
+  has_battle(b_name,ob1,ob2,root->go_left());
+
+
 
 }
 int battle::start_game(first_name & ob1, first_name & ob2, first_name & ob3,first_name & ob4, first_name & ob5, first_name & ob6){
@@ -164,8 +208,16 @@ char event::compare(){
 }
 event::event(char * a_event){
 
-  event_name = new char[strlen(a_event)];
+  event_name = new char[strlen(a_event) + 1];
   strcpy(event_name,a_event);
+
+  int i = 0;
+
+  while(i < strlen(a_event)){
+
+    event_name[i] = toupper(event_name[i]);
+    ++i;
+  }
 
   //head = NULL;
   

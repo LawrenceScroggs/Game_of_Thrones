@@ -15,15 +15,38 @@
 /************************************first_name**********************************************/
 
 
+// operator for +=
+first_name & first_name::operator+=(const first_name & a_name){
+
+  this->hit_points = this->hit_points + a_name.hit_points;
+
+  return *this;
+
+}
+// operator for -= 
+first_name & first_name::operator-=(const first_name& a_name){
+
+  this->hit_points = this->hit_points - a_name.atk_points;
+  ++this->count_dwn;
+
+  if(a_name.count_dwn == 10 && power == true){
+
+    cout << "POWER UP: ";
+
+  }
+
+  return *this;
+
+}
 // connects the proper script object to proper first obj
-int first_name::use_script(int i){
+int first_name::use_script(){
 
-  i = 2;
 
+  int i = rand() % 6;
 
   cout << script->show_speech(i);
 
-  cout << endl;
+  cout << endl << endl;
 
 }
 // gets name for the speech class to tie script to name
@@ -65,12 +88,14 @@ first_name::first_name(char * a_first, char * a_last):last_name(a_last){
 
     file = new char[strlen("jon.txt")+1];
     strcpy(file,"jon.txt");
+    power = true;
 
   }
   else if(strcmp(first,"ARYA") == 0){
 
     file = new char[strlen("arya.txt")+1];
     strcpy(file,"arya.txt");
+    power = true;
 
   }
   script = new speech(first,file);
@@ -80,6 +105,8 @@ first_name::first_name(char * a_first, char * a_last):last_name(a_last){
 first_name::first_name(){
 
   first = new char[100];
+
+  power = false;
 
 }
 // destructor for first
@@ -159,7 +186,6 @@ last_name::last_name(char * a_last):person(a_last){
   last = new char[strlen(a_last)+1];
   strcpy(last,a_last);
 
-  activate = false;
 
 }
 // constructo for last name
@@ -175,7 +201,16 @@ last_name::~last_name(){
   delete last;
 
 }
+
 /*******************************************Person******************************************/
+
+
+// gets hp for battles
+int person::see_hp(){
+
+  return hit_points;
+
+}
 // sets data for person
 person::person(char * a_last){
 

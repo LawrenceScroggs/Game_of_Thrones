@@ -19,7 +19,7 @@ class person{
     person();
     ~person();
 
-    int set_hp();
+    int see_hp();
     int set_atk();
 
   protected:
@@ -57,12 +57,15 @@ class first_name: public last_name{
     first_name();
     ~first_name();
 
+    first_name& operator -= (const first_name&);  
+    first_name & operator += (const first_name&);
+
     void stats();
 
     int use_pwr();
 
     int attack();
-    int use_script(int i);
+    int use_script();
 
     char * view_name();
 

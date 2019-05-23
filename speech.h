@@ -13,6 +13,7 @@
 #include <cctype>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 using namespace std;
 
@@ -25,7 +26,6 @@ class speech{
     ~speech();
 
     char * show_speech(int x);
-    int set_speech(char * file);
     int get_player(char * name);
 
   protected:

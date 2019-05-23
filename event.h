@@ -29,8 +29,6 @@ class event{
     
     char * event_name;
 
-//    first_name * head;
-
     event * left;
     event * right;
 
@@ -49,7 +47,7 @@ class battle{
 
   protected:
 
-    int has_battle(first_name & ob1, first_name & ob2,event *& root);
+    int has_battle(char * b_name, first_name & ob1, first_name & ob2,event *& root);
     int display_battles(event * root);
     int build_battles(event *& root,char * temp);
 

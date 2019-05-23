@@ -37,6 +37,9 @@ int main(){
 
   the_war.has_battle(player1,player2);
 
+  player1.stats();
+  player2.stats();
+
 
 
 
