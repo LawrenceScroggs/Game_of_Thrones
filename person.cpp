@@ -15,6 +15,50 @@
 /************************************first_name**********************************************/
 
 
+// adds a win
+int first_name::set_win(){
+
+  ++this->victories;
+
+}
+// resets stats
+int first_name::reset(){
+
+  if(strcmp(last,"LANNISTER") == 0){
+
+    hit_points = 160;
+
+  }
+  else if(strcmp(last,"STARK") == 0){
+
+    hit_points = 200;
+    
+  }
+  else if(strcmp(last,"TARGARYEN") == 0){
+
+    hit_points = 175;
+
+  }
+}
+// operator fo +
+first_name first_name::operator+(const first_name & a_name){
+
+  first_name a;
+
+  a.hit_points = this->hit_points - a_name.hit_points;
+
+  return a;
+
+}
+first_name first_name::operator-(const first_name & a_name){
+
+  first_name a;
+
+  a.hit_points = this->hit_points - a_name.hit_points;
+
+  return a;
+
+}
 // operator for +=
 first_name & first_name::operator+=(const first_name & a_name){
 
@@ -26,23 +70,66 @@ first_name & first_name::operator+=(const first_name & a_name){
 // operator for -= 
 first_name & first_name::operator-=(const first_name& a_name){
 
+  if(this->count_dwn == 10)
+    this->hit_points += this->use_pwr();
+
   this->hit_points = this->hit_points - a_name.atk_points;
   ++this->count_dwn;
 
-  if(a_name.count_dwn == 10 && power == true){
+  return *this;
 
-    cout << "POWER UP: ";
+}
+// sets power and returns the boost
+int first_name::use_pwr(){
+
+  if(strcmp(first,"JON") == 0){
+
+    cout << "I KNOW NOTHING!!!\n" << endl;
+    return 20;
+  }
+  else if(strcmp(first,"ARYA") == 0){
+
+    cout << "A girl has no name.\n ";
+    return 15;
 
   }
+  else if(strcmp(first,"SANSA") == 0){ 
 
-  return *this;
+    cout << "I finally am doing something. \n";
+    return 10;
+
+  }
+  else if(strcmp(first,"JAMIE") == 0){
+
+    cout << "Gold hand Smash!! \n";
+    return 25;
+
+  }
+  else if(strcmp(first,"CERSEI") == 0){ 
+
+    cout << "I am the worst character on the show. \n";
+    return 10;
+
+  }
+  else if(strcmp(first,"DAENERYS") == 0){
+
+    cout << "DRACARYS!!!\n";
+    return 30;
+
+  }
+  else{
+
+    cout << "My role on this show is unimportant \n";
+    return 5;
+
+  }
 
 }
 // connects the proper script object to proper first obj
 int first_name::use_script(){
 
 
-  int i = rand() % 6;
+  int i = rand() % 10;
 
   cout << script->show_speech(i);
 
@@ -62,13 +149,14 @@ void first_name::stats(){
   cout << "Last: " << last << endl;
   cout << "Health: " << hit_points << endl;
   cout << "Attack: " << atk_points << endl;
+  cout << "Win Count: " << victories << endl;
+
   cout << endl << endl;
 
 }
 // sets first name data
 first_name::first_name(char * a_first, char * a_last):last_name(a_last){
 
-  cout << "first called" << endl;
 
   int i = 0;
   
@@ -89,6 +177,7 @@ first_name::first_name(char * a_first, char * a_last):last_name(a_last){
     file = new char[strlen("jon.txt")+1];
     strcpy(file,"jon.txt");
     power = true;
+    count_dwn = -5;
 
   }
   else if(strcmp(first,"ARYA") == 0){
@@ -96,9 +185,52 @@ first_name::first_name(char * a_first, char * a_last):last_name(a_last){
     file = new char[strlen("arya.txt")+1];
     strcpy(file,"arya.txt");
     power = true;
+    count_dwn = 0;
 
   }
-  script = new speech(first,file);
+  else if(strcmp(first,"SANSA") == 0){ 
+    file = new char[strlen("sansa.txt")+1];
+    strcpy(file,"sansa.txt");
+    power = true;
+    count_dwn = 5;
+
+  }
+  else if(strcmp(first,"JAMIE") == 0){
+
+    file = new char[strlen("jamie.txt")+1];
+    strcpy(file,"jamie.txt");
+    power = true;
+    count_dwn = 3;
+
+  }
+  else if(strcmp(first,"CERSEI") == 0){ 
+
+    file = new char[strlen("cersei.txt")+1];
+    strcpy(file,"cersei.txt");
+    power = true;
+    count_dwn = 0;
+
+  }
+  else if(strcmp(first,"DAENERYS") == 0){
+
+    file = new char[strlen("danny.txt")+1];
+    strcpy(file,"danny.txt");
+    power = true;
+    count_dwn = -10;
+
+  }
+  else{
+
+    file = new char[strlen("generic.txt")+1];
+    strcpy(file,"generic.txt");
+    power = false;
+    count_dwn = 0;
+
+  }
+ 
+  this->script = new speech(first,file);
+
+  delete [] file;
 
 }
 // constructor for  first
@@ -112,7 +244,8 @@ first_name::first_name(){
 // destructor for first
 first_name::~first_name(){
 
-  delete first;
+  delete [] first;
+  delete script;
 
 }
 /************************************last_name***********************************************/
@@ -152,23 +285,25 @@ int last_name::set_special(){
 // sets last name data
 last_name::last_name(char * a_last):person(a_last){
 
-  cout << "last called" << a_last << endl;
   bool check = true;
 
   while(check){
     if(strcmp(a_last,"LANNISTER") == 0){
 
       check = false;
+      activate = true;
 
     }
     else if(strcmp(a_last,"STARK") == 0){
 
       check = false;
+      activate = true;
 
     }
     else if(strcmp(a_last,"TARGARYEN") == 0){
 
       check = false; 
+      activate = true;
 
     }
     else{
@@ -198,12 +333,10 @@ last_name::last_name(){
 // destructor for last
 last_name::~last_name(){
 
-  delete last;
-
+  delete [] last;
 }
 
 /*******************************************Person******************************************/
-
 
 // gets hp for battles
 int person::see_hp(){
@@ -214,7 +347,6 @@ int person::see_hp(){
 // sets data for person
 person::person(char * a_last){
 
-  cout << "person called " << a_last << endl;
   bool check = true;
 
   int i = 0;
@@ -232,7 +364,7 @@ person::person(char * a_last){
   while(check){
     if(strcmp(a_last,"LANNISTER") == 0){
 
-      hp = 150;
+      hp = 160;
       atk = 15;
 
       check = false;

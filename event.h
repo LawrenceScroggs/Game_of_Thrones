@@ -14,12 +14,14 @@
 class event{
 
   public:
+    event(const event & obj);
     event(char * a_event);
     event();
     ~event();
 
     event *& go_left();
     event *& go_right();
+
     char compare();
     char * show_info();
 
@@ -43,10 +45,12 @@ class battle{
     int battles_in(); // reads in names of battles
     int build_battles(char * temp);
     int has_battle(first_name & ob1, first_name & ob2);
-    int start_game(first_name & ob1, first_name & ob2, first_name & ob3,first_name & ob4, first_name & ob5, first_name & ob6);
 
   protected:
 
+/************recursive function**************************************************/
+    
+    int delete_battle(event *& root);
     int has_battle(char * b_name, first_name & ob1, first_name & ob2,event *& root);
     int display_battles(event * root);
     int build_battles(event *& root,char * temp);

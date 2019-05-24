@@ -14,10 +14,10 @@
 // returns the script with set int x sent in by first
 char * speech::show_speech(int i){
 
-
   return speech_txt[i];
 
 }
+// copy constructor 
 speech::speech(const speech & a_ob){
 
   speech * ptr;
@@ -30,13 +30,13 @@ speech::speech(const speech & a_ob){
   }
 
 }
+// speech constructor for preset names
 speech::speech(char * name, char * file){
 
-  cout << "speech called" << endl;
   s_name = new char[strlen(name)+1];
   strcpy(s_name,name);
 
-  lines = 5;
+  lines = 10;
 
   speech_txt = new char * [lines];
 
@@ -45,32 +45,23 @@ speech::speech(char * name, char * file){
     speech_txt[x] = NULL;
   }
 
-
   const char * all[] = {file};
 
   int i = 0;
 
+  char * temp = new char[500];
   ifstream obj;
   obj.open(all[i]);
   if(obj){
 
-      if(obj.peek() == -1){
-        obj.clear();
-        obj.close();
-      }
+    if(obj.peek() == -1){
+
+      obj.clear();
+      obj.close();
+    }
 
       while(obj && !obj.eof() && obj.peek() != -1){
 
-      /*  if(obj.peek() == -1){
-                              
-          cout << "exit 3 " << endl;
-          obj.clear();
-          obj.close();
-          
-          return -1;
-        }*/
-
-            char * temp = new char[500];
             obj.get(temp,500,'\n');
             obj.ignore(500,'\n');
 
@@ -78,21 +69,20 @@ speech::speech(char * name, char * file){
             strcpy(speech_txt[i],temp);
             ++i;
 
-            delete temp;
           }
     }
-    
-      obj.clear();
-      obj.close();
-
-
+   
+  delete [] temp;
+  obj.clear();
+  obj.close();
 
 }
-/*speech::speech(){
+// default constructo
+speech::speech(){
 
   s_name = new char[100];
 
-  lines = 5;
+  lines = 10;
  
   speech_txt = new char * [lines];
 
@@ -100,16 +90,18 @@ speech::speech(char * name, char * file){
 
     speech_txt[x] = NULL;
   }
-}*/
+}
+// destructor
 speech::~speech(){
 
   int i = 0;
 
-  delete s_name;
+  delete [] s_name;
 
   while(i < lines){
     delete speech_txt[i];
     i++;
   }
+  delete [] speech_txt;
 
 }

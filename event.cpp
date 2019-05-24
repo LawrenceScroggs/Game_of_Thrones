@@ -12,6 +12,66 @@
 
 /************************battle*************************************************************/
 
+// deletes event after battle takes place
+int battle::delete_battle(event *& root){
+
+  // @ leaf
+  if(!root->go_left() && !root->go_right()){
+
+    delete root;
+    root = NULL;
+    return 1;
+
+  }
+  // left is null
+  else if(!root->go_left()){
+
+    event * temp = root;
+    root = root->go_right();
+    delete temp;
+    return 1;
+
+  }
+  // right is null
+  else if(!root->go_right()){
+
+    event * temp = root;
+    root = root->go_left();
+    delete temp;
+    return 1;
+
+  }
+  // left and right are not null// delete and reconnect
+  else{
+
+    if(!root->go_right()->go_left()){
+
+      event * temp = root;
+      event * current = root;
+      current = root->go_right();
+      root = current;
+      root->go_left() = temp->go_left();
+      delete temp;
+
+      return 1;
+
+    }
+    else{
+      event * prev = root;
+      event * current = root->go_right();
+      while(current){
+        prev = current;
+        current = root->go_left();
+      }
+      root = current;
+      prev->go_left() = root->go_right();
+
+      delete current;
+    }
+  }
+
+}
+// sets the battle for user to choose
 int battle::has_battle(first_name & ob1, first_name & ob2){
 
   if(!root)
@@ -35,7 +95,7 @@ int battle::has_battle(first_name & ob1, first_name & ob2){
     ++i;
     }
 
-  delete temp;
+  delete [] temp;
   cout << b_name << endl;
 
   has_battle(b_name,ob1,ob2,root);
@@ -43,6 +103,7 @@ int battle::has_battle(first_name & ob1, first_name & ob2){
   return 0;
 
 }
+// finds correct battle recursively
 int battle::has_battle(char * b_name, first_name & ob1, first_name & ob2, event *& root){
 
   if(!root){
@@ -64,6 +125,7 @@ int battle::has_battle(char * b_name, first_name & ob1, first_name & ob2, event 
       cout << "Winner is " << ob1.view_name();
       cout << endl;
       ob1.use_script();
+      ob1.set_win();
 
     }
     else{
@@ -71,43 +133,38 @@ int battle::has_battle(char * b_name, first_name & ob1, first_name & ob2, event 
       cout << "Winner is " << ob2.view_name();
       cout << endl;
       ob2.use_script();
+      ob2.set_win();
     }
+
+    ob1.reset();
+    ob2.reset();
+
+    delete_battle(root);
 
     return 0;
   }
+
   has_battle(b_name,ob1,ob2,root->go_right());
   has_battle(b_name,ob1,ob2,root->go_left());
 
-
-
 }
-int battle::start_game(first_name & ob1, first_name & ob2, first_name & ob3,first_name & ob4, first_name & ob5, first_name & ob6){
-
-  
-  cout << "Choose the two characters you want to battle. " << endl;
-  return 1;
- 
-  
-
-}
+// displays battles
 int battle::display_battles(){
 
   if(!root)
     return -1;
 
-  return display_battles(root);
-
-  cout << "leaving " << endl;
+  display_battles(root);
  
   return 0;
 
 }
+// displays battles thru recursion
 int battle::display_battles(event * root){
 
   if(!root){
 
-    cout << "in here" << endl;
-    return 0;
+    return 1;
   }
 
     display_battles(root->go_left());
@@ -118,6 +175,7 @@ int battle::display_battles(event * root){
     return 0;
 
 }
+// builds battle tree from file
 int battle::build_battles(char * temp){
 
   if(!temp){
@@ -128,6 +186,7 @@ int battle::build_battles(char * temp){
   else
     build_battles(root,temp);
 }
+// recursive build
 int battle::build_battles(event *& root,char * temp){
 
   if(!root){
@@ -142,11 +201,13 @@ int battle::build_battles(event *& root,char * temp){
     build_battles(root->go_right(),temp);
 
 }
+// loads up battles from file
 int battle::battles_in(){
 
   ifstream file_in;
   file_in.open("battles.txt");
 
+  char * temp = new char[100];
     if(file_in){
 
       if(file_in.peek() == -1) return -1;
@@ -160,52 +221,58 @@ int battle::battles_in(){
           return -1;
         }
 
-            char * temp = new char[100];
             file_in.get(temp,100,'\n');
             file_in.ignore(100,'\n');
 
             build_battles(temp);
 
-            delete temp;
           }
     }
 
+  delete [] temp;
   file_in.clear();
   file_in.close();
 
 }
+// defaults constructor
 battle::battle(){
 
   root = NULL;
 
 }
+// destructor
 battle::~battle(){
 
-  delete root;
+    delete root;
+    root = NULL;
 
 }
 
 /*******************************event********************************************************/
 
-
+// show name of event/battle
 char * event::show_info(){
 
   return event_name;
 
 }
+// goes right
 event *& event::go_right(){
 
   return right;
 
 }
+// goes left
 event *& event::go_left(){
 
   return left;
 }
+// returns first letter of event for bst
 char event::compare(){
 
   return event_name[0];
 }
+// builds event with name arg
 event::event(char * a_event){
 
   event_name = new char[strlen(a_event) + 1];
@@ -218,28 +285,38 @@ event::event(char * a_event){
     event_name[i] = toupper(event_name[i]);
     ++i;
   }
-
-  //head = NULL;
   
   left = NULL;
   right = NULL;
 
 }
+// copy constructor
+event::event(const event & obj){
+
+  event_name = new char[strlen(obj.event_name) + 1];
+  strcpy(event_name,obj.event_name);
+
+  left = obj.left;
+  right = obj.right;
+
+}
+// default constructor
 event::event(){
 
   event_name = new char[100];
 
-  //head = NULL;
-
   left = NULL;
   right = NULL;
 
 }
+// destructor
 event::~event(){
-  
+ 
+  delete [] event_name;
 
-  delete left;
-  delete right;
+  left = NULL;
+  right = NULL;
+
 
 }
 

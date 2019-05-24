@@ -19,8 +19,8 @@ class person{
     person();
     ~person();
 
+    
     int see_hp();
-    int set_atk();
 
   protected:
 
@@ -30,6 +30,7 @@ class person{
     int count_dwn;
 
     bool speech_on;
+
 
 };
 class last_name: public person{
@@ -59,18 +60,21 @@ class first_name: public last_name{
 
     first_name& operator -= (const first_name&);  
     first_name & operator += (const first_name&);
+    first_name operator + (const first_name &);
+    first_name operator - (const first_name &);
 
     void stats();
 
+    int reset();
     int use_pwr();
-
-    int attack();
+    int set_win();
     int use_script();
 
     char * view_name();
 
-  protected:
 
+  protected:
+   
     bool power;  //sets power for additional boost
     char * first;
 
